@@ -101,7 +101,7 @@ function focusable( element, isTabIndexNotNaN ) {
 			return false;
 		}
 		img = $( "img[usemap='#" + mapName + "']" )[ 0 ];
-		return !!img && visible( img );
+		return Boolean(img) && visible( img );
 	}
 	return ( /^(input|select|textarea|button|object)$/.test( nodeName ) ?
 		!element.disabled :
@@ -123,12 +123,12 @@ $.extend( $.expr[ ":" ], {
 	data: $.expr.createPseudo ?
 		$.expr.createPseudo(function( dataName ) {
 			return function( elem ) {
-				return !!$.data( elem, dataName );
+				return Boolean($.data( elem, dataName ));
 			};
 		}) :
 		// support: jQuery <1.8
 		function( elem, i, match ) {
-			return !!$.data( elem, match[ 3 ] );
+			return Boolean($.data( elem, match[ 3 ] ));
 		},
 
 	focusable: function( element ) {
@@ -212,7 +212,7 @@ if ( $( "<a>" ).data( "a-b", "a" ).removeData( "a-b" ).data( "a-b" ) ) {
 }
 
 // deprecated
-$.ui.ie = !!/msie [\w.]+/.exec( navigator.userAgent.toLowerCase() );
+$.ui.ie = Boolean(/msie [\w.]+/.exec( navigator.userAgent.toLowerCase() ));
 
 $.fn.extend({
 	focus: (function( orig ) {
@@ -359,7 +359,7 @@ $.widget = function( name, base, prototype ) {
 
 	// create selector for plugin
 	$.expr[ ":" ][ fullName.toLowerCase() ] = function( elem ) {
-		return !!$.data( elem, fullName );
+		return Boolean($.data( elem, fullName ));
 	};
 
 	$[ namespace ] = $[ namespace ] || {};
@@ -672,7 +672,7 @@ $.Widget.prototype = {
 
 		if ( key === "disabled" ) {
 			this.widget()
-				.toggleClass( this.widgetFullName + "-disabled", !!value );
+				.toggleClass( this.widgetFullName + "-disabled", Boolean(value) );
 
 			// If the widget is becoming disabled, then nothing is interactive
 			if ( value ) {
@@ -1149,7 +1149,7 @@ $.position = {
 	getWithinInfo: function( element ) {
 		var withinElement = $( element || window ),
 			isWindow = $.isWindow( withinElement[0] ),
-			isDocument = !!withinElement[ 0 ] && withinElement[ 0 ].nodeType === 9;
+			isDocument = Boolean(withinElement[ 0 ]) && withinElement[ 0 ].nodeType === 9;
 		return {
 			element: withinElement,
 			isWindow: isWindow,
@@ -1711,10 +1711,10 @@ var accordion = $.widget( "ui.accordion", {
 		// so we need to add the disabled class to the headers and panels
 		if ( key === "disabled" ) {
 			this.element
-				.toggleClass( "ui-state-disabled", !!value )
+				.toggleClass( "ui-state-disabled", Boolean(value) )
 				.attr( "aria-disabled", value );
 			this.headers.add( this.headers.next() )
-				.toggleClass( "ui-state-disabled", !!value );
+				.toggleClass( "ui-state-disabled", Boolean(value) );
 		}
 	},
 
@@ -2168,7 +2168,7 @@ var menu = $.widget( "ui.menu", {
 		this.element
 			.uniqueId()
 			.addClass( "ui-menu ui-widget ui-widget-content" )
-			.toggleClass( "ui-menu-icons", !!this.element.find( ".ui-icon" ).length )
+			.toggleClass( "ui-menu-icons", Boolean(this.element.find( ".ui-icon" ).length) )
 			.attr({
 				role: this.options.role,
 				tabIndex: 0
@@ -2393,7 +2393,7 @@ var menu = $.widget( "ui.menu", {
 			icon = this.options.icons.submenu,
 			submenus = this.element.find( this.options.menus );
 
-		this.element.toggleClass( "ui-menu-icons", !!this.element.find( ".ui-icon" ).length );
+		this.element.toggleClass( "ui-menu-icons", Boolean(this.element.find( ".ui-icon" ).length) );
 
 		// Initialize nested menus
 		submenus.filter( ":not(.ui-menu)" )
@@ -2461,7 +2461,7 @@ var menu = $.widget( "ui.menu", {
 		}
 		if ( key === "disabled" ) {
 			this.element
-				.toggleClass( "ui-state-disabled", !!value )
+				.toggleClass( "ui-state-disabled", Boolean(value) )
 				.attr( "aria-disabled", value );
 		}
 		this._super( key, value );
@@ -3425,13 +3425,13 @@ $.widget( "ui.button", {
 			.bind( "reset" + this.eventNamespace, formResetHandler );
 
 		if ( typeof this.options.disabled !== "boolean" ) {
-			this.options.disabled = !!this.element.prop( "disabled" );
+			this.options.disabled = Boolean(this.element.prop( "disabled" ));
 		} else {
 			this.element.prop( "disabled", this.options.disabled );
 		}
 
 		this._determineButtonType();
-		this.hasTitle = !!this.buttonElement.attr( "title" );
+		this.hasTitle = Boolean(this.buttonElement.attr( "title" ));
 
 		var that = this,
 			options = this.options,
@@ -3613,8 +3613,8 @@ $.widget( "ui.button", {
 	_setOption: function( key, value ) {
 		this._super( key, value );
 		if ( key === "disabled" ) {
-			this.widget().toggleClass( "ui-state-disabled", !!value );
-			this.element.prop( "disabled", !!value );
+			this.widget().toggleClass( "ui-state-disabled", Boolean(value) );
+			this.element.prop( "disabled", Boolean(value) );
 			if ( value ) {
 				if ( this.type === "checkbox" || this.type === "radio" ) {
 					this.buttonElement.removeClass( "ui-state-focus" );
@@ -4370,8 +4370,8 @@ $.extend(Datepicker.prototype, {
 							-$.datepicker._get(inst, "stepMonths")), "M");
 						break; // previous month/year on page up/+ ctrl
 				case 34: $.datepicker._adjustDate(event.target, (event.ctrlKey ?
-							+$.datepicker._get(inst, "stepBigMonths") :
-							+$.datepicker._get(inst, "stepMonths")), "M");
+							Number($.datepicker._get(inst, "stepBigMonths")) :
+							Number($.datepicker._get(inst, "stepMonths"))), "M");
 						break; // next month/year on page down/+ ctrl
 				case 35: if (event.ctrlKey || event.metaKey) {
 							$.datepicker._clearDate(event.target);
@@ -4407,8 +4407,8 @@ $.extend(Datepicker.prototype, {
 						// +1 day on ctrl or command +right
 						if (event.originalEvent.altKey) {
 							$.datepicker._adjustDate(event.target, (event.ctrlKey ?
-								+$.datepicker._get(inst, "stepBigMonths") :
-								+$.datepicker._get(inst, "stepMonths")), "M");
+								Number($.datepicker._get(inst, "stepBigMonths")) :
+								Number($.datepicker._get(inst, "stepMonths"))), "M");
 						}
 						// next month/year on alt +right
 						break;
@@ -4867,7 +4867,7 @@ $.extend(Datepicker.prototype, {
 			throw "Invalid arguments";
 		}
 
-		value = (typeof value === "object" ? value.toString() : value + "");
+		value = (typeof value === "object" ? value.toString() : String(value));
 		if (value === "") {
 			return null;
 		}
@@ -5091,7 +5091,7 @@ $.extend(Datepicker.prototype, {
 			},
 			// Format a number, with leading zero if necessary
 			formatNumber = function(match, value, len) {
-				var num = "" + value;
+				var num = String(value);
 				if (lookAhead(match)) {
 					while (num.length < len) {
 						num = "0" + num;
@@ -5349,7 +5349,7 @@ $.extend(Datepicker.prototype, {
 					$.datepicker._adjustDate(id, -stepMonths, "M");
 				},
 				next: function () {
-					$.datepicker._adjustDate(id, +stepMonths, "M");
+					$.datepicker._adjustDate(id, Number(stepMonths), "M");
 				},
 				hide: function () {
 					$.datepicker._hideDatepicker();
@@ -5358,7 +5358,7 @@ $.extend(Datepicker.prototype, {
 					$.datepicker._gotoToday(id);
 				},
 				selectDay: function () {
-					$.datepicker._selectDay(id, +this.getAttribute("data-month"), +this.getAttribute("data-year"), this);
+					$.datepicker._selectDay(id, Number(this.getAttribute("data-month")), Number(this.getAttribute("data-year")), this);
 					return false;
 				},
 				selectMonth: function () {
@@ -6162,7 +6162,7 @@ $.widget("ui.draggable", $.ui.mouse, {
 
 	_getHandle: function(event) {
 		return this.options.handle ?
-			!!$( event.target ).closest( this.element.find( this.options.handle ) ).length :
+			Boolean($( event.target ).closest( this.element.find( this.options.handle ) ).length) :
 			true;
 	},
 
@@ -6216,7 +6216,7 @@ $.widget("ui.draggable", $.ui.mouse, {
 			obj = obj.split(" ");
 		}
 		if ($.isArray(obj)) {
-			obj = { left: +obj[0], top: +obj[1] || 0 };
+			obj = { left: Number(obj[0]), top: Number(obj[1]) || 0 };
 		}
 		if ("left" in obj) {
 			this.offset.click.left = obj.left + this.margins.left;
@@ -7031,7 +7031,7 @@ $.widget("ui.resizable", $.ui.mouse, {
 		this.element.addClass("ui-resizable");
 
 		$.extend(this, {
-			_aspectRatio: !!(o.aspectRatio),
+			_aspectRatio: Boolean(o.aspectRatio),
 			aspectRatio: o.aspectRatio,
 			originalElement: this.element,
 			_proportionallyResizeElements: [],
@@ -8303,11 +8303,11 @@ var dialog = $.widget( "ui.dialog", {
 	_moveToTop: function( event, silent ) {
 		var moved = false,
 			zIndices = this.uiDialog.siblings( ".ui-front:visible" ).map(function() {
-				return +$( this ).css( "z-index" );
+				return Number($( this ).css( "z-index" ));
 			}).get(),
 			zIndexMax = Math.max.apply( null, zIndices );
 
-		if ( zIndexMax >= +this.uiDialog.css( "z-index" ) ) {
+		if ( zIndexMax >= Number(this.uiDialog.css( "z-index" )) ) {
 			this.uiDialog.css( "z-index", zIndexMax + 1 );
 			moved = true;
 		}
@@ -8764,7 +8764,7 @@ var dialog = $.widget( "ui.dialog", {
 		if ( key === "closeText" ) {
 			this.uiDialogTitlebarClose.button({
 				// Ensure that we always pass a string
-				label: "" + value
+				label: String(value)
 			});
 		}
 
@@ -8880,7 +8880,7 @@ var dialog = $.widget( "ui.dialog", {
 
 		// TODO: Remove hack when datepicker implements
 		// the .ui-front logic (#8989)
-		return !!$( event.target ).closest( ".ui-datepicker" ).length;
+		return Boolean($( event.target ).closest( ".ui-datepicker" ).length);
 	},
 
 	_createOverlay: function() {
@@ -11091,7 +11091,7 @@ var effectFold = $.effects.effect.fold = function( o, done ) {
 		hide = mode === "hide",
 		size = o.size || 15,
 		percent = /([0-9]+)%/.exec( size ),
-		horizFirst = !!o.horizFirst,
+		horizFirst = Boolean(o.horizFirst),
 		widthFirst = show !== horizFirst,
 		ref = widthFirst ? [ "width", "height" ] : [ "height", "width" ],
 		duration = o.duration / 2,
@@ -11863,7 +11863,7 @@ var progressbar = $.widget( "ui.progressbar", {
 		}
 		if ( key === "disabled" ) {
 			this.element
-				.toggleClass( "ui-state-disabled", !!value )
+				.toggleClass( "ui-state-disabled", Boolean(value) )
 				.attr( "aria-disabled", value );
 		}
 		this._super( key, value );
@@ -13212,7 +13212,7 @@ var slider = $.widget( "ui.slider", $.ui.mouse, {
 		}
 
 		if ( key === "disabled" ) {
-			this.element.toggleClass( "ui-state-disabled", !!value );
+			this.element.toggleClass( "ui-state-disabled", Boolean(value) );
 		}
 
 		this._super( key, value );
@@ -13319,7 +13319,7 @@ var slider = $.widget( "ui.slider", $.ui.mouse, {
 		var max = this.options.max,
 			min = this._valueMin(),
 			step = this.options.step,
-			aboveMin = Math.floor( ( +( max - min ).toFixed( this._precision() ) ) / step ) * step;
+			aboveMin = Math.floor( ( Number(( max - min ).toFixed( this._precision() )) ) / step ) * step;
 		max = aboveMin + min;
 		this.max = parseFloat( max.toFixed( this._precision() ) );
 	},
@@ -14445,7 +14445,7 @@ var sortable = $.widget("ui.sortable", $.ui.mouse, {
 			obj = obj.split(" ");
 		}
 		if ($.isArray(obj)) {
-			obj = {left: +obj[0], top: +obj[1] || 0};
+			obj = {left: Number(obj[0]), top: Number(obj[1]) || 0};
 		}
 		if ("left" in obj) {
 			this.offset.click.left = obj.left + this.margins.left;
@@ -15166,8 +15166,8 @@ var spinner = $.widget( "ui.spinner", {
 		this._super( key, value );
 
 		if ( key === "disabled" ) {
-			this.widget().toggleClass( "ui-state-disabled", !!value );
-			this.element.prop( "disabled", !!value );
+			this.widget().toggleClass( "ui-state-disabled", Boolean(value) );
+			this.element.prop( "disabled", Boolean(value) );
 			this.buttons.button( value ? "disable" : "enable" );
 		}
 	},
@@ -15179,7 +15179,7 @@ var spinner = $.widget( "ui.spinner", {
 	_parse: function( val ) {
 		if ( typeof val === "string" && val !== "" ) {
 			val = window.Globalize && this.options.numberFormat ?
-				Globalize.parseFloat( val, 10, this.options.culture ) : +val;
+				Globalize.parseFloat( val, 10, this.options.culture ) : Number(val);
 		}
 		return val === "" || isNaN( val ) ? null : val;
 	},

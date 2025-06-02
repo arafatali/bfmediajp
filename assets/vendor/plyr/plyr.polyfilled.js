@@ -28,8 +28,8 @@ typeof navigator === "object" && (function (global, factory) {
       var CustomEvent = function CustomEvent(event, params) {
         var evt, origPrevent;
         params = params || {};
-        params.bubbles = !!params.bubbles;
-        params.cancelable = !!params.cancelable;
+        params.bubbles = Boolean(params.bubbles);
+        params.cancelable = Boolean(params.cancelable);
         evt = document.createEvent('CustomEvent');
         evt.initCustomEvent(event, params.bubbles, params.cancelable, params.detail);
         origPrevent = evt.preventDefault;
@@ -79,7 +79,7 @@ typeof navigator === "object" && (function (global, factory) {
 
   var fails = function (exec) {
     try {
-      return !!exec();
+      return Boolean(exec());
     } catch (error) {
       return true;
     }
@@ -100,7 +100,7 @@ typeof navigator === "object" && (function (global, factory) {
   // https://tc39.github.io/ecma262/#sec-object.prototype.propertyisenumerable
   var f = NASHORN_BUG ? function propertyIsEnumerable(V) {
     var descriptor = getOwnPropertyDescriptor(this, V);
-    return !!descriptor && descriptor.enumerable;
+    return Boolean(descriptor) && descriptor.enumerable;
   } : nativePropertyIsEnumerable;
 
   var objectPropertyIsEnumerable = {
@@ -344,9 +344,9 @@ typeof navigator === "object" && (function (global, factory) {
   });
 
   (module.exports = function (O, key, value, options) {
-    var unsafe = options ? !!options.unsafe : false;
-    var simple = options ? !!options.enumerable : false;
-    var noTargetGet = options ? !!options.noTargetGet : false;
+    var unsafe = options ? Boolean(options.unsafe) : false;
+    var simple = options ? Boolean(options.enumerable) : false;
+    var noTargetGet = options ? Boolean(options.noTargetGet) : false;
     if (typeof value == 'function') {
       if (typeof key == 'string' && !has(value, 'name')) hide(value, 'name', key);
       enforceInternalState(value).source = TEMPLATE.join(typeof key == 'string' ? key : '');
@@ -385,7 +385,7 @@ typeof navigator === "object" && (function (global, factory) {
   // `ToInteger` abstract operation
   // https://tc39.github.io/ecma262/#sec-tointeger
   var toInteger = function (argument) {
-    return isNaN(argument = +argument) ? 0 : (argument > 0 ? floor : ceil)(argument);
+    return isNaN(argument = Number(argument)) ? 0 : (argument > 0 ? floor : ceil)(argument);
   };
 
   var min = Math.min;
@@ -505,7 +505,7 @@ typeof navigator === "object" && (function (global, factory) {
     return value == POLYFILL ? true
       : value == NATIVE ? false
       : typeof detection == 'function' ? fails(detection)
-      : !!detection;
+      : Boolean(detection);
   };
 
   var normalize = isForced.normalize = function (string) {
@@ -572,7 +572,7 @@ typeof navigator === "object" && (function (global, factory) {
     }
   };
 
-  var nativeSymbol = !!Object.getOwnPropertySymbols && !fails(function () {
+  var nativeSymbol = Boolean(Object.getOwnPropertySymbols) && !fails(function () {
     // Chrome 38 Symbol has incorrect toString conversion
     // eslint-disable-next-line no-undef
     return !String(Symbol());
@@ -1838,7 +1838,7 @@ typeof navigator === "object" && (function (global, factory) {
             capture = namedCaptures[ch.slice(1, -1)];
             break;
           default: // \d\d?
-            var n = +ch;
+            var n = Number(ch);
             if (n === 0) return match;
             if (n > m) {
               var f = floor$1(n / 10);
@@ -1894,7 +1894,7 @@ typeof navigator === "object" && (function (global, factory) {
   // https://tc39.github.io/ecma262/#sec-isregexp
   var isRegexp = function (it) {
     var isRegExp;
-    return isObject(it) && ((isRegExp = it[MATCH]) !== undefined ? !!isRegExp : classofRaw(it) == 'RegExp');
+    return isObject(it) && ((isRegExp = it[MATCH]) !== undefined ? Boolean(isRegExp) : classofRaw(it) == 'RegExp');
   };
 
   var SPECIES$4 = wellKnownSymbol('species');
@@ -2556,11 +2556,11 @@ typeof navigator === "object" && (function (global, factory) {
               (second = entryIterator.next()).done ||
               !entryIterator.next().done
             ) throw TypeError('Expected sequence with length 2');
-            entries.push({ key: first.value + '', value: second.value + '' });
+            entries.push({ key: String(first.value), value: String(second.value) });
           }
-        } else for (key in init) if (has(init, key)) entries.push({ key: key, value: init[key] + '' });
+        } else for (key in init) if (has(init, key)) entries.push({ key: key, value: String(init[key]) });
       } else {
-        parseSearchParams(entries, typeof init === 'string' ? init.charAt(0) === '?' ? init.slice(1) : init : init + '');
+        parseSearchParams(entries, typeof init === 'string' ? init.charAt(0) === '?' ? init.slice(1) : init : String(init));
       }
     }
   };
@@ -2573,7 +2573,7 @@ typeof navigator === "object" && (function (global, factory) {
     append: function append(name, value) {
       validateArgumentsLength(arguments.length, 2);
       var state = getInternalParamsState(this);
-      state.entries.push({ key: name + '', value: value + '' });
+      state.entries.push({ key: String(name), value: String(value) });
       state.updateURL();
     },
     // `URLSearchParams.prototype.delete` method
@@ -2582,7 +2582,7 @@ typeof navigator === "object" && (function (global, factory) {
       validateArgumentsLength(arguments.length, 1);
       var state = getInternalParamsState(this);
       var entries = state.entries;
-      var key = name + '';
+      var key = String(name);
       var index = 0;
       while (index < entries.length) {
         if (entries[index].key === key) entries.splice(index, 1);
@@ -2595,7 +2595,7 @@ typeof navigator === "object" && (function (global, factory) {
     get: function get(name) {
       validateArgumentsLength(arguments.length, 1);
       var entries = getInternalParamsState(this).entries;
-      var key = name + '';
+      var key = String(name);
       var index = 0;
       for (; index < entries.length; index++) {
         if (entries[index].key === key) return entries[index].value;
@@ -2607,7 +2607,7 @@ typeof navigator === "object" && (function (global, factory) {
     getAll: function getAll(name) {
       validateArgumentsLength(arguments.length, 1);
       var entries = getInternalParamsState(this).entries;
-      var key = name + '';
+      var key = String(name);
       var result = [];
       var index = 0;
       for (; index < entries.length; index++) {
@@ -2620,7 +2620,7 @@ typeof navigator === "object" && (function (global, factory) {
     has: function has(name) {
       validateArgumentsLength(arguments.length, 1);
       var entries = getInternalParamsState(this).entries;
-      var key = name + '';
+      var key = String(name);
       var index = 0;
       while (index < entries.length) {
         if (entries[index++].key === key) return true;
@@ -2634,8 +2634,8 @@ typeof navigator === "object" && (function (global, factory) {
       var state = getInternalParamsState(this);
       var entries = state.entries;
       var found = false;
-      var key = name + '';
-      var val = value + '';
+      var key = String(name);
+      var val = String(value);
       var index = 0;
       var entry;
       for (; index < entries.length; index++) {
@@ -3662,7 +3662,7 @@ typeof navigator === "object" && (function (global, factory) {
         var url = getInternalURLState(this);
         if (url.cannotBeABaseURL) return;
         url.path = [];
-        parseURL(url, pathname + '', PATH_START);
+        parseURL(url, String(pathname), PATH_START);
       }),
       // `URL.prototype.search` accessors pair
       // https://url.spec.whatwg.org/#dom-url-search
@@ -3842,14 +3842,14 @@ typeof navigator === "object" && (function (global, factory) {
   }
 
   (function (global) {
-    /**
-     * Polyfill URLSearchParams
-     *
-     * Inspired from : https://github.com/WebReflection/url-search-params/blob/master/src/url-search-params.js
+    /** 
+     * Polyfill URLSearchParams 
+     * 
+     * Inspired from : https://github.com/WebReflection/url-search-params/blob/master/src/url-search-params.js 
      */
     var checkIfIteratorIsSupported = function checkIfIteratorIsSupported() {
       try {
-        return !!Symbol.iterator;
+        return Boolean(Symbol.iterator);
       } catch (error) {
         return false;
       }
@@ -3876,9 +3876,9 @@ typeof navigator === "object" && (function (global, factory) {
 
       return iterator;
     };
-    /**
-     * Search param name and values should be encoded according to https://url.spec.whatwg.org/#urlencoded-serializing
-     * encodeURIComponent() produces the same result except encoding spaces as `%20` instead of `+`.
+    /** 
+     * Search param name and values should be encoded according to https://url.spec.whatwg.org/#urlencoded-serializing 
+     * encodeURIComponent() produces the same result except encoding spaces as `%20` instead of `+`. 
      */
 
 
@@ -4088,10 +4088,10 @@ typeof navigator === "object" && (function (global, factory) {
   })(typeof commonjsGlobal !== 'undefined' ? commonjsGlobal : typeof window !== 'undefined' ? window : typeof self !== 'undefined' ? self : commonjsGlobal);
 
   (function (global) {
-    /**
-     * Polyfill URL
-     *
-     * Inspired from : https://github.com/arv/DOM-URL-Polyfill/blob/master/src/url.js
+    /** 
+     * Polyfill URL 
+     * 
+     * Inspired from : https://github.com/arv/DOM-URL-Polyfill/blob/master/src/url.js 
      */
     var checkIfURLIsSupported = function checkIfURLIsSupported() {
       try {
@@ -4325,7 +4325,7 @@ typeof navigator === "object" && (function (global, factory) {
   var isConcatSpreadable = function (O) {
     if (!isObject(O)) return false;
     var spreadable = O[IS_CONCAT_SPREADABLE];
-    return spreadable !== undefined ? !!spreadable : isArray(O);
+    return spreadable !== undefined ? Boolean(spreadable) : isArray(O);
   };
 
   var FORCED = !IS_CONCAT_SPREADABLE_SUPPORT || !SPECIES_SUPPORT;
@@ -4394,7 +4394,7 @@ typeof navigator === "object" && (function (global, factory) {
     var called = 0;
     var iteratorWithReturn = {
       next: function () {
-        return { done: !!called++ };
+        return { done: Boolean(called++) };
       },
       'return': function () {
         SAFE_CLOSING = true;
@@ -4532,7 +4532,7 @@ typeof navigator === "object" && (function (global, factory) {
         switch (it.charCodeAt(1)) {
           case 66: case 98: radix = 2; maxCode = 49; break; // fast equal of /^0b[01]+$/i
           case 79: case 111: radix = 8; maxCode = 55; break; // fast equal of /^0o[0-7]+$/i
-          default: return +it;
+          default: return Number(it);
         }
         digits = it.slice(2);
         length = digits.length;
@@ -4543,7 +4543,7 @@ typeof navigator === "object" && (function (global, factory) {
           if (code < 48 || code > maxCode) return NaN;
         } return parseInt(digits, radix);
       }
-    } return +it;
+    } return Number(it);
   };
 
   // `Number` constructor
@@ -4607,8 +4607,8 @@ typeof navigator === "object" && (function (global, factory) {
   // https://tc39.github.io/ecma262/#sec-string.prototype.includes
   _export({ target: 'String', proto: true, forced: !correctIsRegexpLogic('includes') }, {
     includes: function includes(searchString /* , position = 0 */) {
-      return !!~String(requireObjectCoercible(this))
-        .indexOf(notARegexp(searchString), arguments.length > 1 ? arguments[1] : undefined);
+      return Boolean(~String(requireObjectCoercible(this))
+        .indexOf(notARegexp(searchString), arguments.length > 1 ? arguments[1] : undefined));
     }
   });
 
@@ -4839,7 +4839,7 @@ typeof navigator === "object" && (function (global, factory) {
       if (entry) return entry[1];
     },
     has: function (key) {
-      return !!findUncaughtFrozen(this, key);
+      return Boolean(findUncaughtFrozen(this, key));
     },
     set: function (key, value) {
       var entry = findUncaughtFrozen(this, key);
@@ -4851,7 +4851,7 @@ typeof navigator === "object" && (function (global, factory) {
         return it[0] === key;
       });
       if (~index) this.entries.splice(index, 1);
-      return !!~index;
+      return Boolean(~index);
     }
   };
 
@@ -5004,7 +5004,7 @@ typeof navigator === "object" && (function (global, factory) {
   // of whitespaces and has a correct name
   var forcedStringTrimMethod = function (METHOD_NAME) {
     return fails(function () {
-      return !!whitespaces[METHOD_NAME]() || non[METHOD_NAME]() != non || whitespaces[METHOD_NAME].name !== METHOD_NAME;
+      return Boolean(whitespaces[METHOD_NAME]()) || non[METHOD_NAME]() != non || whitespaces[METHOD_NAME].name !== METHOD_NAME;
     });
   };
 
@@ -5025,7 +5025,7 @@ typeof navigator === "object" && (function (global, factory) {
     if (typeof value != 'number' && classofRaw(value) != 'Number') {
       throw TypeError('Incorrect invocation');
     }
-    return +value;
+    return Number(value);
   };
 
   // `String.prototype.repeat` method implementation
@@ -5366,7 +5366,7 @@ typeof navigator === "object" && (function (global, factory) {
 
     return Math.max(0, // Number of digits right of decimal point.
     (match[1] ? match[1].length : 0) - ( // Adjust for scientific notation.
-    match[2] ? +match[2] : 0));
+    match[2] ? Number(match[2]) : 0));
   } // Round to the nearest step
 
   function round(number, step) {
@@ -5617,7 +5617,7 @@ typeof navigator === "object" && (function (global, factory) {
 
   var post = function (id) {
     // old engines have not location.origin
-    global_1.postMessage(id + '', location.protocol + '//' + location.host);
+    global_1.postMessage(String(id), location.protocol + '//' + location.host);
   };
 
   // Node.js 0.9+ & IE10+ has setImmediate, otherwise:
@@ -5827,7 +5827,7 @@ typeof navigator === "object" && (function (global, factory) {
   var newPromiseCapability$1 = newPromiseCapability.f;
   var newGenericPromiseCapability = newPromiseCapability$1;
   var IS_NODE$1 = classofRaw(process$2) == 'process';
-  var DISPATCH_EVENT = !!(document$2 && document$2.createEvent && global_1.dispatchEvent);
+  var DISPATCH_EVENT = Boolean(document$2 && document$2.createEvent && global_1.dispatchEvent);
   var UNHANDLED_REJECTION = 'unhandledrejection';
   var REJECTION_HANDLED = 'rejectionhandled';
   var PENDING = 0;
@@ -6321,7 +6321,7 @@ typeof navigator === "object" && (function (global, factory) {
   var browser = {
     isIE:
     /* @cc_on!@ */
-    !!document.documentMode,
+    Boolean(document.documentMode),
     isEdge: window.navigator.userAgent.includes('Edge'),
     isWebkit: 'WebkitAppearance' in document.documentElement.style && !/Edge/.test(navigator.userAgent),
     isIPhone: /(iPhone|iPod)/gi.test(navigator.platform),
@@ -10047,7 +10047,7 @@ typeof navigator === "object" && (function (global, factory) {
     }], [{
       key: "native",
       get: function get() {
-        return !!(document.fullscreenEnabled || document.webkitFullscreenEnabled || document.mozFullScreenEnabled || document.msFullscreenEnabled);
+        return Boolean(document.fullscreenEnabled || document.webkitFullscreenEnabled || document.mozFullScreenEnabled || document.msFullscreenEnabled);
       }
     }, {
       key: "prefix",
@@ -10084,7 +10084,7 @@ typeof navigator === "object" && (function (global, factory) {
   // https://tc39.github.io/ecma262/#sec-math.sign
   var mathSign = Math.sign || function sign(x) {
     // eslint-disable-next-line no-self-compare
-    return (x = +x) == 0 || x != x ? x : x < 0 ? -1 : 1;
+    return (x = Number(x)) == 0 || x != x ? x : x < 0 ? -1 : 1;
   };
 
   // `Math.sign` method

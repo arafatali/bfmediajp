@@ -486,7 +486,7 @@
     return typeof s === 'string';
   }
   function isNode(el) {
-    return !!(el && el.nodeType && el.nodeType == 1);
+    return Boolean(el && el.nodeType && el.nodeType == 1);
   }
   function isArray(ar) {
     return Array.isArray(ar);
