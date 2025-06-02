@@ -75,7 +75,7 @@ typeof navigator === "object" && (function (global, factory) {
     check(typeof self == O && self) ||
     check(typeof commonjsGlobal == O && commonjsGlobal) ||
     // eslint-disable-next-line no-new-func
-    Function('return this')();
+    function () { return this }();
 
   var fails = function (exec) {
     try {
@@ -3842,10 +3842,10 @@ typeof navigator === "object" && (function (global, factory) {
   }
 
   (function (global) {
-    /**
-     * Polyfill URLSearchParams
-     *
-     * Inspired from : https://github.com/WebReflection/url-search-params/blob/master/src/url-search-params.js
+    /** 
+     * Polyfill URLSearchParams 
+     * 
+     * Inspired from : https://github.com/WebReflection/url-search-params/blob/master/src/url-search-params.js 
      */
     var checkIfIteratorIsSupported = function checkIfIteratorIsSupported() {
       try {
@@ -3876,9 +3876,9 @@ typeof navigator === "object" && (function (global, factory) {
 
       return iterator;
     };
-    /**
-     * Search param name and values should be encoded according to https://url.spec.whatwg.org/#urlencoded-serializing
-     * encodeURIComponent() produces the same result except encoding spaces as `%20` instead of `+`.
+    /** 
+     * Search param name and values should be encoded according to https://url.spec.whatwg.org/#urlencoded-serializing 
+     * encodeURIComponent() produces the same result except encoding spaces as `%20` instead of `+`. 
      */
 
 
@@ -4088,10 +4088,10 @@ typeof navigator === "object" && (function (global, factory) {
   })(typeof commonjsGlobal !== 'undefined' ? commonjsGlobal : typeof window !== 'undefined' ? window : typeof self !== 'undefined' ? self : commonjsGlobal);
 
   (function (global) {
-    /**
-     * Polyfill URL
-     *
-     * Inspired from : https://github.com/arv/DOM-URL-Polyfill/blob/master/src/url.js
+    /** 
+     * Polyfill URL 
+     * 
+     * Inspired from : https://github.com/arv/DOM-URL-Polyfill/blob/master/src/url.js 
      */
     var checkIfURLIsSupported = function checkIfURLIsSupported() {
       try {
