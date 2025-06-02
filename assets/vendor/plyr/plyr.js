@@ -210,7 +210,7 @@ typeof navigator === "object" && (function (global, factory) {
 
     return Math.max(0, // Number of digits right of decimal point.
     (match[1] ? match[1].length : 0) - ( // Adjust for scientific notation.
-    match[2] ? +match[2] : 0));
+    match[2] ? Number(match[2]) : 0));
   } // Round to the nearest step
 
   function round(number, step) {
@@ -576,7 +576,7 @@ typeof navigator === "object" && (function (global, factory) {
   var browser = {
     isIE:
     /* @cc_on!@ */
-    !!document.documentMode,
+    Boolean(document.documentMode),
     isEdge: window.navigator.userAgent.includes('Edge'),
     isWebkit: 'WebkitAppearance' in document.documentElement.style && !/Edge/.test(navigator.userAgent),
     isIPhone: /(iPhone|iPod)/gi.test(navigator.platform),
@@ -4242,7 +4242,7 @@ typeof navigator === "object" && (function (global, factory) {
     }], [{
       key: "native",
       get: function get() {
-        return !!(document.fullscreenEnabled || document.webkitFullscreenEnabled || document.mozFullScreenEnabled || document.msFullscreenEnabled);
+        return Boolean(document.fullscreenEnabled || document.webkitFullscreenEnabled || document.mozFullScreenEnabled || document.msFullscreenEnabled);
       }
     }, {
       key: "prefix",

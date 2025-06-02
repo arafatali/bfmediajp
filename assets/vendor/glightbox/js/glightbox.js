@@ -486,13 +486,13 @@
     return typeof s === 'string';
   }
   function isNode(el) {
-    return !!(el && el.nodeType && el.nodeType == 1);
+    return Boolean(el?.nodeType && el.nodeType == 1);
   }
   function isArray(ar) {
     return Array.isArray(ar);
   }
   function isArrayLike(ar) {
-    return ar && ar.length && isFinite(ar.length);
+    return ar?.length && isFinite(ar.length);
   }
   function isObject(o) {
     var type = _typeof(o);
@@ -579,7 +579,7 @@
           var focusedButton = document.querySelector('.gbtn.focused');
 
           if (!focusedButton) {
-            var activeElement = document.activeElement && document.activeElement.nodeName ? document.activeElement.nodeName.toLocaleLowerCase() : false;
+            var activeElement = document.activeElement?.nodeName ? document.activeElement.nodeName.toLocaleLowerCase() : false;
 
             if (activeElement == 'input' || activeElement == 'textarea' || activeElement == 'button') {
               return;
@@ -779,7 +779,7 @@
 
         var ignoreDragFor = ['a', 'button', 'input'];
 
-        if (evt.target && evt.target.nodeName && ignoreDragFor.indexOf(evt.target.nodeName.toLowerCase()) >= 0) {
+        if (evt.target?.nodeName && ignoreDragFor.indexOf(evt.target.nodeName.toLowerCase()) >= 0) {
           console.log('ignore drag for this touched element', evt.target.nodeName.toLowerCase());
           return;
         }
@@ -1582,7 +1582,7 @@
       value: function dragEnd(e) {
         var _this2 = this;
 
-        e && e.preventDefault();
+        e?.preventDefault();
         this.initialX = 0;
         this.initialY = 0;
         this.currentX = null;
@@ -2064,7 +2064,7 @@
               var regex = new RegExp(match);
               var matches = str.match(regex);
 
-              if (matches && matches.length && matches[1]) {
+              if (matches?.length && matches[1]) {
                 var value = matches[1].trim().replace(/;\s*$/, '');
                 data[key] = _this.sanitizeValue(value);
               }
@@ -3030,7 +3030,7 @@
         console.log('stopSlideVideo is deprecated, use slidePlayerPause');
         var player = this.getSlidePlayerInstance(slide);
 
-        if (player && player.playing) {
+        if (player?.playing) {
           player.pause();
         }
       }
@@ -3047,7 +3047,7 @@
 
         var player = this.getSlidePlayerInstance(slide);
 
-        if (player && player.playing) {
+        if (player?.playing) {
           player.pause();
         }
       }
@@ -3104,7 +3104,7 @@
         this.settings.elements = false;
         var newElements = [];
 
-        if (elements && elements.length) {
+        if (elements?.length) {
           each(elements, function (el, i) {
             var slide = new Slide(el, _this5, i);
             var data = slide.getConfig();
