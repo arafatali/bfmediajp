@@ -92,24 +92,4 @@ class ClassMethodsPlugin extends AbstractPlugin
             $o->addRepresentation($rep);
         }
     }
-
-    private static function sort(MethodValue $a, MethodValue $b): int
-    {
-        $sort = ((int) $a->static) - ((int) $b->static);
-        if ($sort) {
-            return $sort;
-        }
-
-        $sort = Value::sortByAccess($a, $b);
-        if ($sort) {
-            return $sort;
-        }
-
-        $sort = InstanceValue::sortByHierarchy($a->owner_class, $b->owner_class);
-        if ($sort) {
-            return $sort;
-        }
-
-        return $a->startline - $b->startline;
-    }
 }

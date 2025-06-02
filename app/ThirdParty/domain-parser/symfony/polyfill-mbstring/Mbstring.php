@@ -727,41 +727,6 @@ final class Mbstring
         return self::mb_substr($haystack, $pos, null, $encoding);
     }
 
-    private static function html_encoding_callback(array $m)
-    {
-        $i = 1;
-        $entities = '';
-        $m = unpack('C*', htmlentities($m[0], ENT_COMPAT, 'UTF-8'));
-
-        while (isset($m[$i])) {
-            if (0x80 > $m[$i]) {
-                $entities .= \chr($m[$i++]);
-                continue;
-            }
-            if (0xF0 <= $m[$i]) {
-                $c = (($m[$i++] - 0xF0) << 18) + (($m[$i++] - 0x80) << 12) + (($m[$i++] - 0x80) << 6) + $m[$i++] - 0x80;
-            } elseif (0xE0 <= $m[$i]) {
-                $c = (($m[$i++] - 0xE0) << 12) + (($m[$i++] - 0x80) << 6) + $m[$i++] - 0x80;
-            } else {
-                $c = (($m[$i++] - 0xC0) << 6) + $m[$i++] - 0x80;
-            }
-
-            $entities .= '&#'.$c.';';
-        }
-
-        return $entities;
-    }
-
-    private static function title_case_lower(array $s)
-    {
-        return self::mb_convert_case($s[0], MB_CASE_LOWER, 'UTF-8');
-    }
-
-    private static function title_case_upper(array $s)
-    {
-        return self::mb_convert_case($s[0], MB_CASE_UPPER, 'UTF-8');
-    }
-
     private static function getData($file)
     {
         if (file_exists($file = __DIR__.'/Resources/unidata/'.$file.'.php')) {

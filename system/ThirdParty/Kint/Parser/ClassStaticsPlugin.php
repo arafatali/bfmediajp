@@ -136,19 +136,4 @@ class ClassStaticsPlugin extends AbstractPlugin
 
         $o->addRepresentation($statics);
     }
-
-    private static function sort(Value $a, Value $b): int
-    {
-        $sort = ((int) $a->const) - ((int) $b->const);
-        if ($sort) {
-            return $sort;
-        }
-
-        $sort = Value::sortByAccess($a, $b);
-        if ($sort) {
-            return $sort;
-        }
-
-        return InstanceValue::sortByHierarchy($a->owner_class, $b->owner_class);
-    }
 }
