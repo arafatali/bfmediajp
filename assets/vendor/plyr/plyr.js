@@ -224,7 +224,7 @@ typeof navigator === "object" && (function (global, factory) {
 
   var RangeTouch =
   /*#__PURE__*/
-  function () {
+  (function () {
     /**
      * Setup a new instance
      * @param {String|Element} target
@@ -413,7 +413,7 @@ typeof navigator === "object" && (function (global, factory) {
     }]);
 
     return RangeTouch;
-  }();
+  }());
 
   // ==========================================================================
   // Type checking utils
@@ -541,7 +541,7 @@ typeof navigator === "object" && (function (global, factory) {
   };
 
   // ==========================================================================
-  var transitionEndEvent = function () {
+  var transitionEndEvent = (function () {
     var element = document.createElement('span');
     var events = {
       WebkitTransition: 'webkitTransitionEnd',
@@ -553,7 +553,7 @@ typeof navigator === "object" && (function (global, factory) {
       return element.style[event] !== undefined;
     });
     return is$1.string(type) ? events[type] : false;
-  }(); // Force repaint of element
+  }()); // Force repaint of element
 
   function repaint(element, delay) {
     setTimeout(function () {
@@ -587,7 +587,7 @@ typeof navigator === "object" && (function (global, factory) {
   // https://github.com/WICG/EventListenerOptions/blob/gh-pages/explainer.md
   // https://www.youtube.com/watch?v=NPM6172J22g
 
-  var supportsPassiveListeners = function () {
+  var supportsPassiveListeners = (function () {
     // Test via a getter in the options object to see if the passive property is accessed
     var supported = false;
 
@@ -604,7 +604,7 @@ typeof navigator === "object" && (function (global, factory) {
     }
 
     return supported;
-  }(); // Toggle event listener
+  }()); // Toggle event listener
 
 
   function toggleListener(element, event, callback) {
@@ -1073,7 +1073,7 @@ typeof navigator === "object" && (function (global, factory) {
     },
     // Picture-in-picture support
     // Safari & Chrome only currently
-    pip: function () {
+    pip: (function () {
       if (browser.isIPhone) {
         return false;
       } // Safari
@@ -1091,7 +1091,7 @@ typeof navigator === "object" && (function (global, factory) {
       }
 
       return false;
-    }(),
+    }()),
     // Airplay support
     // Safari only currently
     airplay: is$1.function(window.WebKitPlaybackTargetAvailabilityEvent),
@@ -1130,11 +1130,11 @@ typeof navigator === "object" && (function (global, factory) {
     // Check for textTracks support
     textTracks: 'textTracks' in document.createElement('video'),
     // <input type="range"> Sliders
-    rangeInput: function () {
+    rangeInput: (function () {
       var range = document.createElement('input');
       range.type = 'range';
       return range.type === 'range';
-    }(),
+    }()),
     // Touch
     // NOTE: Remember a device can be mouse + touch enabled so we check on first touch event
     touch: 'ontouchstart' in document.documentElement,
@@ -1482,7 +1482,7 @@ typeof navigator === "object" && (function (global, factory) {
 
   var Storage =
   /*#__PURE__*/
-  function () {
+  (function () {
     function Storage(player) {
       _classCallCheck(this, Storage);
 
@@ -1553,7 +1553,7 @@ typeof navigator === "object" && (function (global, factory) {
     }]);
 
     return Storage;
-  }();
+  }());
 
   // ==========================================================================
   // Fetch wrapper
@@ -3988,7 +3988,7 @@ typeof navigator === "object" && (function (global, factory) {
 
   var Console =
   /*#__PURE__*/
-  function () {
+  (function () {
     function Console() {
       var enabled = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
 
@@ -4022,7 +4022,7 @@ typeof navigator === "object" && (function (global, factory) {
     }]);
 
     return Console;
-  }();
+  }());
 
   function onChange() {
     if (!this.enabled) {
@@ -4093,7 +4093,7 @@ typeof navigator === "object" && (function (global, factory) {
 
   var Fullscreen =
   /*#__PURE__*/
-  function () {
+  (function () {
     function Fullscreen(player) {
       var _this = this;
 
@@ -4273,7 +4273,7 @@ typeof navigator === "object" && (function (global, factory) {
     }]);
 
     return Fullscreen;
-  }();
+  }());
 
   // ==========================================================================
   // Load image avoiding xhr/fetch CORS issues
@@ -4514,7 +4514,7 @@ typeof navigator === "object" && (function (global, factory) {
 
   var Listeners =
   /*#__PURE__*/
-  function () {
+  (function () {
     function Listeners(player) {
       _classCallCheck(this, Listeners);
 
@@ -5287,7 +5287,7 @@ typeof navigator === "object" && (function (global, factory) {
     }]);
 
     return Listeners;
-  }();
+  }());
 
   var commonjsGlobal = typeof globalThis !== 'undefined' ? globalThis : typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
 
@@ -6395,7 +6395,7 @@ typeof navigator === "object" && (function (global, factory) {
 
   var Ads =
   /*#__PURE__*/
-  function () {
+  (function () {
     /**
      * Ads constructor.
      * @param {Object} player
@@ -7018,7 +7018,7 @@ typeof navigator === "object" && (function (global, factory) {
     }]);
 
     return Ads;
-  }();
+  }());
 
   var parseVtt = function parseVtt(vttDataString) {
     var processedList = [];
@@ -7077,7 +7077,7 @@ typeof navigator === "object" && (function (global, factory) {
 
   var PreviewThumbnails =
   /*#__PURE__*/
-  function () {
+  (function () {
     /**
      * PreviewThumbnails constructor.
      * @param {Plyr} player
@@ -7699,7 +7699,7 @@ typeof navigator === "object" && (function (global, factory) {
     }]);
 
     return PreviewThumbnails;
-  }();
+  }());
 
   var source = {
     // Add elements to HTML5 media (source, tracks, etc)
@@ -7863,7 +7863,7 @@ typeof navigator === "object" && (function (global, factory) {
 
   var Plyr =
   /*#__PURE__*/
-  function () {
+  (function () {
     function Plyr(target, options) {
       var _this = this;
 
@@ -7890,13 +7890,13 @@ typeof navigator === "object" && (function (global, factory) {
       } // Set config
 
 
-      this.config = extend({}, defaults$1, Plyr.defaults, options || {}, function () {
+      this.config = extend({}, defaults$1, Plyr.defaults, options || {}, (function () {
         try {
           return JSON.parse(_this.media.getAttribute('data-plyr-config'));
         } catch (e) {
           return {};
         }
-      }()); // Elements cache
+      }())); // Elements cache
 
       this.elements = {
         container: null,
@@ -9122,7 +9122,7 @@ typeof navigator === "object" && (function (global, factory) {
     }]);
 
     return Plyr;
-  }();
+  }());
 
   Plyr.defaults = cloneDeep(defaults$1);
 
