@@ -8,7 +8,7 @@ if (typeof jQuery === 'undefined') {
   throw new Error('Bootstrap\'s JavaScript requires jQuery')
 }
 
-+(function ($) {
+Number(function ($) {
   'use strict';
   var version = $.fn.jquery.split(' ')[0].split('.')
   if ((version[0] < 2 && version[1] < 9) || (version[0] == 1 && version[1] == 9 && version[2] < 1) || (version[0] > 3)) {
@@ -25,7 +25,7 @@ if (typeof jQuery === 'undefined') {
  * ======================================================================== */
 
 
-+(function ($) {
+Number(function ($) {
   'use strict';
 
   // CSS TRANSITION SUPPORT (Shoutout: http://www.modernizr.com/)
@@ -85,7 +85,7 @@ if (typeof jQuery === 'undefined') {
  * ======================================================================== */
 
 
-+(function ($) {
+Number(function ($) {
   'use strict';
 
   // ALERT CLASS DEFINITION
@@ -180,7 +180,7 @@ if (typeof jQuery === 'undefined') {
  * ======================================================================== */
 
 
-+(function ($) {
+Number(function ($) {
   'use strict';
 
   // BUTTON PUBLIC CLASS DEFINITION
@@ -306,7 +306,7 @@ if (typeof jQuery === 'undefined') {
  * ======================================================================== */
 
 
-+(function ($) {
+Number(function ($) {
   'use strict';
 
   // CAROUSEL CLASS DEFINITION
@@ -352,13 +352,11 @@ if (typeof jQuery === 'undefined') {
   }
 
   Carousel.prototype.cycle = function (e) {
-    e || (this.paused = false)
+    
 
     this.interval && clearInterval(this.interval)
 
-    this.options.interval
-      && !this.paused
-      && (this.interval = setInterval($.proxy(this.next, this), this.options.interval))
+    
 
     return this
   }
@@ -391,7 +389,7 @@ if (typeof jQuery === 'undefined') {
   }
 
   Carousel.prototype.pause = function (e) {
-    e || (this.paused = true)
+    
 
     if (this.$element.find('.next, .prev').length && $.support.transition) {
       this.$element.trigger($.support.transition.end)
@@ -443,7 +441,7 @@ if (typeof jQuery === 'undefined') {
     var slidEvent = $.Event('slid.bs.carousel', { relatedTarget: relatedTarget, direction: direction }) // yes, "slid"
     if ($.support.transition && this.$element.hasClass('slide')) {
       $next.addClass(type)
-      $next[0].offsetWidth // force reflow
+       // force reflow
       $active.addClass(direction)
       $next.addClass(direction)
       $active
@@ -545,7 +543,7 @@ if (typeof jQuery === 'undefined') {
 
 /* jshint latedef: false */
 
-+(function ($) {
+Number(function ($) {
   'use strict';
 
   // COLLAPSE PUBLIC CLASS DEFINITION
@@ -597,7 +595,7 @@ if (typeof jQuery === 'undefined') {
 
     if (actives && actives.length) {
       Plugin.call(actives, 'hide')
-      activesData || actives.data('bs.collapse', null)
+      
     }
 
     var dimension = this.dimension()
@@ -640,7 +638,7 @@ if (typeof jQuery === 'undefined') {
 
     var dimension = this.dimension()
 
-    this.$element[dimension](this.$element[dimension]())[0].offsetHeight
+    
 
     this.$element
       .addClass('collapsing')
@@ -757,7 +755,7 @@ if (typeof jQuery === 'undefined') {
  * ======================================================================== */
 
 
-+(function ($) {
+Number(function ($) {
   'use strict';
 
   // DROPDOWN CLASS DEFINITION
@@ -923,7 +921,7 @@ if (typeof jQuery === 'undefined') {
  * ======================================================================== */
 
 
-+(function ($) {
+Number(function ($) {
   'use strict';
 
   // MODAL CLASS DEFINITION
@@ -1003,7 +1001,7 @@ if (typeof jQuery === 'undefined') {
       that.adjustDialog()
 
       if (transition) {
-        that.$element[0].offsetWidth // force reflow
+         // force reflow
       }
 
       that.$element.addClass('in')
@@ -1120,7 +1118,7 @@ if (typeof jQuery === 'undefined') {
           : this.hide()
       }, this))
 
-      if (doAnimate) this.$backdrop[0].offsetWidth // force reflow
+      if (doAnimate)  // force reflow
 
       this.$backdrop.addClass('in')
 
@@ -1264,7 +1262,7 @@ if (typeof jQuery === 'undefined') {
  * ======================================================================== */
 
 
-+(function ($) {
+Number(function ($) {
   'use strict';
 
   // TOOLTIP PUBLIC CLASS DEFINITION
@@ -1784,7 +1782,7 @@ if (typeof jQuery === 'undefined') {
  * ======================================================================== */
 
 
-+(function ($) {
+Number(function ($) {
   'use strict';
 
   // POPOVER PUBLIC CLASS DEFINITION
@@ -1893,7 +1891,7 @@ if (typeof jQuery === 'undefined') {
  * ======================================================================== */
 
 
-+(function ($) {
+Number(function ($) {
   'use strict';
 
   // SCROLLSPY CLASS DEFINITION
@@ -2066,7 +2064,7 @@ if (typeof jQuery === 'undefined') {
  * ======================================================================== */
 
 
-+(function ($) {
+Number(function ($) {
   'use strict';
 
   // TAB CLASS DEFINITION
@@ -2126,7 +2124,7 @@ if (typeof jQuery === 'undefined') {
     var $active    = container.find('> .active')
     var transition = callback
       && $.support.transition
-      && ($active.length && $active.hasClass('fade') || !!container.find('> .fade').length)
+      && ($active.length && $active.hasClass('fade') || Boolean(container.find('> .fade').length))
 
     function next() {
       $active
@@ -2143,7 +2141,7 @@ if (typeof jQuery === 'undefined') {
           .attr('aria-expanded', true)
 
       if (transition) {
-        element[0].offsetWidth // reflow for transition
+         // reflow for transition
         element.addClass('in')
       } else {
         element.removeClass('fade')
@@ -2222,7 +2220,7 @@ if (typeof jQuery === 'undefined') {
  * ======================================================================== */
 
 
-+(function ($) {
+Number(function ($) {
   'use strict';
 
   // AFFIX CLASS DEFINITION
