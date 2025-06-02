@@ -1,0 +1,47 @@
+.mytoc {
+    background: #f6f6f6;
+    clear: both;
+    padding:20px 0 20px;
+	overflow: auto!important;
+	
+}
+.mytoc ul {
+    padding:0 20px;
+    list-style-type: none;
+}
+.mytoc a {
+    color:#333 ;
+}
+.mytoc a:hover {
+    color: #757C84;
+}
+.mytoc h2 {
+    margin:0;
+    padding:10px 0;
+}
+
+@media screen and (min-width: 800px) and (orientation: landscape)  {
+    .mytoc {
+        position: relative;
+        top: 0px;
+        /*left: 600px;
+        width:340px;*/
+        font-size: 0.75em;
+        background: inherit;
+        padding:0;
+        white-space:nowrap;
+        height: 100%;
+    }   
+    .mytoc h2 {
+        background: inherit;
+        text-align: inherit;
+        border-bottom: 1px #eee solid;
+        padding:10px;
+    }
+    .mytoc ul {
+        padding:0 10px;
+    }
+    .mytoc li {
+        padding:0 10px;
+    }
+}

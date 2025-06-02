@@ -1,0 +1,10 @@
+User-agent: *
+
+Sitemap: https://www.bfmedia.jp/sitemap.xml
+
+Disallow: /en/
+Disallow: /admin/
+Disallow: /profile/
+Disallow: /connect-with-vk
+Disallow: /connect-with-facebook
+Disallow: /connect-with-google
