@@ -376,7 +376,7 @@ typeof navigator === "object" && (function (global, factory) {
 
   var getBuiltIn = function (namespace, method) {
     return arguments.length < 2 ? aFunction(path[namespace]) || aFunction(global_1[namespace])
-      : path[namespace] && path[namespace][method] || global_1[namespace] && global_1[namespace][method];
+      : path[namespace]?.[method] || global_1[namespace]?.[method];
   };
 
   var ceil = Math.ceil;
@@ -555,7 +555,7 @@ typeof navigator === "object" && (function (global, factory) {
       sourceProperty = source[key];
       if (options.noTargetGet) {
         descriptor = getOwnPropertyDescriptor$1(target, key);
-        targetProperty = descriptor && descriptor.value;
+        targetProperty = descriptor?.value;
       } else targetProperty = target[key];
       FORCED = isForced_1(GLOBAL ? key : TARGET + (STATIC ? '.' : '#') + key, options.forced);
       // contained in target
@@ -564,7 +564,7 @@ typeof navigator === "object" && (function (global, factory) {
         copyConstructorProperties(sourceProperty, targetProperty);
       }
       // add a flag to not completely full polyfills
-      if (options.sham || (targetProperty && targetProperty.sham)) {
+      if (options.sham || (targetProperty?.sham)) {
         hide(sourceProperty, 'sham', true);
       }
       // extend global
@@ -831,7 +831,7 @@ typeof navigator === "object" && (function (global, factory) {
   var ObjectPrototype = Object[PROTOTYPE$1];
   var $Symbol = global_1.Symbol;
   var JSON$1 = global_1.JSON;
-  var nativeJSONStringify = JSON$1 && JSON$1.stringify;
+  var nativeJSONStringify = JSON$1?.stringify;
   var nativeGetOwnPropertyDescriptor$1 = objectGetOwnPropertyDescriptor.f;
   var nativeDefineProperty$1 = objectDefineProperty.f;
   var nativeGetOwnPropertyNames$1 = objectGetOwnPropertyNamesExternal.f;
@@ -2077,7 +2077,7 @@ typeof navigator === "object" && (function (global, factory) {
 
   for (var COLLECTION_NAME in domIterables) {
     var Collection = global_1[COLLECTION_NAME];
-    var CollectionPrototype = Collection && Collection.prototype;
+    var CollectionPrototype = Collection?.prototype;
     // some Chrome versions have non-configurable methods on DOMTokenList
     if (CollectionPrototype && CollectionPrototype.forEach !== arrayForEach) try {
       hide(CollectionPrototype, 'forEach', arrayForEach);
@@ -2092,7 +2092,7 @@ typeof navigator === "object" && (function (global, factory) {
 
   for (var COLLECTION_NAME$1 in domIterables) {
     var Collection$1 = global_1[COLLECTION_NAME$1];
-    var CollectionPrototype$1 = Collection$1 && Collection$1.prototype;
+    var CollectionPrototype$1 = Collection$1?.prototype;
     if (CollectionPrototype$1) {
       // some Chrome versions have non-configurable methods on DOMTokenList
       if (CollectionPrototype$1[ITERATOR$2] !== ArrayValues) try {
@@ -4721,7 +4721,7 @@ typeof navigator === "object" && (function (global, factory) {
 
   var collection = function (CONSTRUCTOR_NAME, wrapper, common, IS_MAP, IS_WEAK) {
     var NativeConstructor = global_1[CONSTRUCTOR_NAME];
-    var NativePrototype = NativeConstructor && NativeConstructor.prototype;
+    var NativePrototype = NativeConstructor?.prototype;
     var Constructor = NativeConstructor;
     var ADDER = IS_MAP ? 'set' : 'add';
     var exported = {};
@@ -5642,7 +5642,7 @@ typeof navigator === "object" && (function (global, factory) {
         process.nextTick(runner(id));
       };
     // Sphere (JS game engine) Dispatch API
-    } else if (Dispatch && Dispatch.now) {
+    } else if (Dispatch?.now) {
       defer = function (id) {
         Dispatch.now(runner(id));
       };
@@ -5691,7 +5691,7 @@ typeof navigator === "object" && (function (global, factory) {
   var IS_NODE = classofRaw(process$1) == 'process';
   // Node.js 11 shows ExperimentalWarning on getting `queueMicrotask`
   var queueMicrotaskDescriptor = getOwnPropertyDescriptor$3(global_1, 'queueMicrotask');
-  var queueMicrotask = queueMicrotaskDescriptor && queueMicrotaskDescriptor.value;
+  var queueMicrotask = queueMicrotaskDescriptor?.value;
 
   var flush, head, last, notify, toggle, node, promise;
 
@@ -5728,7 +5728,7 @@ typeof navigator === "object" && (function (global, factory) {
         node.data = toggle = !toggle;
       };
     // environments with maybe non-completely correct, but existent Promise
-    } else if (Promise$1 && Promise$1.resolve) {
+    } else if (Promise$1?.resolve) {
       // Promise.resolve without an argument throws an error in LG WebOS 2
       promise = Promise$1.resolve(undefined);
       notify = function () {
@@ -5788,7 +5788,7 @@ typeof navigator === "object" && (function (global, factory) {
 
   var hostReportErrors = function (a, b) {
     var console = global_1.console;
-    if (console && console.error) {
+    if (console?.error) {
       arguments.length === 1 ? console.error(a) : console.error(a, b);
     }
   };
@@ -5822,12 +5822,12 @@ typeof navigator === "object" && (function (global, factory) {
   var document$2 = global_1.document;
   var process$2 = global_1.process;
   var $fetch = global_1.fetch;
-  var versions = process$2 && process$2.versions;
-  var v8 = versions && versions.v8 || '';
+  var versions = process$2?.versions;
+  var v8 = versions?.v8 || '';
   var newPromiseCapability$1 = newPromiseCapability.f;
   var newGenericPromiseCapability = newPromiseCapability$1;
   var IS_NODE$1 = classofRaw(process$2) == 'process';
-  var DISPATCH_EVENT = Boolean(document$2 && document$2.createEvent && global_1.dispatchEvent);
+  var DISPATCH_EVENT = Boolean(document$2?.createEvent && global_1.dispatchEvent);
   var UNHANDLED_REJECTION = 'unhandledrejection';
   var REJECTION_HANDLED = 'rejectionhandled';
   var PENDING = 0;
@@ -6380,7 +6380,7 @@ typeof navigator === "object" && (function (global, factory) {
 
 
     events.forEach(function (type) {
-      if (_this && _this.eventListeners && toggle) {
+      if (_this?.eventListeners && toggle) {
         // Cache event listener
         _this.eventListeners.push({
           element: element,
@@ -6453,7 +6453,7 @@ typeof navigator === "object" && (function (global, factory) {
   } // Unbind all cached event listeners
 
   function unbindListeners() {
-    if (this && this.eventListeners) {
+    if (this?.eventListeners) {
       this.eventListeners.forEach(function (item) {
         var element = item.element,
             type = item.type,
@@ -6479,7 +6479,7 @@ typeof navigator === "object" && (function (global, factory) {
 
   function getDeep(object, path) {
     return path.split('.').reduce(function (obj, key) {
-      return obj && obj[key];
+      return obj?.[key];
     }, object);
   } // Deep extend destination object with N more objects
 
@@ -8207,7 +8207,7 @@ typeof navigator === "object" && (function (global, factory) {
 
 
       if (!is$1.element(list)) {
-        list = pane && pane.querySelector('[role="menu"]');
+        list = pane?.querySelector('[role="menu"]');
       } // If there's no list it means it's not been rendered...
 
 
@@ -8219,7 +8219,7 @@ typeof navigator === "object" && (function (global, factory) {
       var label = this.elements.settings.buttons[setting].querySelector(".".concat(this.config.classNames.menu.value));
       label.innerHTML = controls.getLabel.call(this, setting, value); // Find the radio option and check it
 
-      var target = list && list.querySelector("[value=\"".concat(value, "\"]"));
+      var target = list?.querySelector("[value=\"".concat(value, "\"]"));
 
       if (is$1.element(target)) {
         target.checked = true;
@@ -10992,7 +10992,7 @@ typeof navigator === "object" && (function (global, factory) {
         this.bind(elements.progress, 'mousemove touchmove', function (event) {
           var previewThumbnails = player.previewThumbnails;
 
-          if (previewThumbnails && previewThumbnails.loaded) {
+          if (previewThumbnails?.loaded) {
             previewThumbnails.startMove(event);
           }
         }); // Hide thumbnail preview - on mouse click, mouse leave, and video play/seek. All four are required, e.g., for buffering
@@ -11000,7 +11000,7 @@ typeof navigator === "object" && (function (global, factory) {
         this.bind(elements.progress, 'mouseleave click', function () {
           var previewThumbnails = player.previewThumbnails;
 
-          if (previewThumbnails && previewThumbnails.loaded) {
+          if (previewThumbnails?.loaded) {
             previewThumbnails.endMove(false, true);
           }
         }); // Show scrubbing preview
@@ -11008,14 +11008,14 @@ typeof navigator === "object" && (function (global, factory) {
         this.bind(elements.progress, 'mousedown touchstart', function (event) {
           var previewThumbnails = player.previewThumbnails;
 
-          if (previewThumbnails && previewThumbnails.loaded) {
+          if (previewThumbnails?.loaded) {
             previewThumbnails.startScrubbing(event);
           }
         });
         this.bind(elements.progress, 'mouseup touchend', function (event) {
           var previewThumbnails = player.previewThumbnails;
 
-          if (previewThumbnails && previewThumbnails.loaded) {
+          if (previewThumbnails?.loaded) {
             previewThumbnails.endScrubbing(event);
           }
         }); // Polyfill for lower fill in <input type="range"> for webkit
@@ -11398,7 +11398,7 @@ typeof navigator === "object" && (function (global, factory) {
       function loadjs(paths, arg1, arg2) {
         var bundleId, args; // bundleId (if string)
 
-        if (arg1 && arg1.trim) bundleId = arg1; // args (default is {})
+        if (arg1?.trim) bundleId = arg1; // args (default is {})
 
         args = (bundleId ? arg2 : arg1) || {}; // throw error if bundle is already defined
 
@@ -11914,7 +11914,7 @@ typeof navigator === "object" && (function (global, factory) {
     ready: function ready() {
       var player = this; // Ignore already setup (race condition)
 
-      var currentId = player.media && player.media.getAttribute('id');
+      var currentId = player.media?.getAttribute('id');
 
       if (!is$1.empty(currentId) && currentId.startsWith('youtube-')) {
         return;
@@ -14046,7 +14046,7 @@ typeof navigator === "object" && (function (global, factory) {
         } // Intecept play with ads
 
 
-        if (this.ads && this.ads.enabled) {
+        if (this.ads?.enabled) {
           this.ads.managerPromise.then(function () {
             return _this2.ads.play();
           }).catch(function () {
@@ -14474,7 +14474,7 @@ typeof navigator === "object" && (function (global, factory) {
         // (i.e. seek to another section buffers only that section)
 
 
-        if (buffered && buffered.length && this.duration > 0) {
+        if (buffered?.length && this.duration > 0) {
           return buffered.end(0) / this.duration;
         }
 
@@ -14599,7 +14599,7 @@ typeof navigator === "object" && (function (global, factory) {
         } // Get audio tracks
 
 
-        return Boolean(this.media.mozHasAudio) || Boolean(this.media.webkitAudioDecodedByteCount) || Boolean(this.media.audioTracks && this.media.audioTracks.length);
+        return Boolean(this.media.mozHasAudio) || Boolean(this.media.webkitAudioDecodedByteCount) || Boolean(this.media.audioTracks?.length);
       }
       /**
        * Set playback speed
