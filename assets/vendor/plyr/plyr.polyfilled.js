@@ -447,7 +447,7 @@ typeof navigator === "object" && (function (global, factory) {
     for (key in O) !has(hiddenKeys, key) && has(O, key) && result.push(key);
     // Don't enum bug & hidden keys
     while (names.length > i) if (has(O, key = names[i++])) {
-      ~indexOf(result, key) || result.push(key);
+      
     }
     return result;
   };
@@ -3842,10 +3842,10 @@ typeof navigator === "object" && (function (global, factory) {
   }
 
   (function (global) {
-    /**
-     * Polyfill URLSearchParams
-     *
-     * Inspired from : https://github.com/WebReflection/url-search-params/blob/master/src/url-search-params.js
+    /** 
+     * Polyfill URLSearchParams 
+     * 
+     * Inspired from : https://github.com/WebReflection/url-search-params/blob/master/src/url-search-params.js 
      */
     var checkIfIteratorIsSupported = function checkIfIteratorIsSupported() {
       try {
@@ -3876,9 +3876,9 @@ typeof navigator === "object" && (function (global, factory) {
 
       return iterator;
     };
-    /**
-     * Search param name and values should be encoded according to https://url.spec.whatwg.org/#urlencoded-serializing
-     * encodeURIComponent() produces the same result except encoding spaces as `%20` instead of `+`.
+    /** 
+     * Search param name and values should be encoded according to https://url.spec.whatwg.org/#urlencoded-serializing 
+     * encodeURIComponent() produces the same result except encoding spaces as `%20` instead of `+`. 
      */
 
 
@@ -4088,10 +4088,10 @@ typeof navigator === "object" && (function (global, factory) {
   })(typeof commonjsGlobal !== 'undefined' ? commonjsGlobal : typeof window !== 'undefined' ? window : typeof self !== 'undefined' ? self : commonjsGlobal);
 
   (function (global) {
-    /**
-     * Polyfill URL
-     *
-     * Inspired from : https://github.com/arv/DOM-URL-Polyfill/blob/master/src/url.js
+    /** 
+     * Polyfill URL 
+     * 
+     * Inspired from : https://github.com/arv/DOM-URL-Polyfill/blob/master/src/url.js 
      */
     var checkIfURLIsSupported = function checkIfURLIsSupported() {
       try {
@@ -6119,10 +6119,10 @@ typeof navigator === "object" && (function (global, factory) {
             if (alreadyCalled) return;
             alreadyCalled = true;
             values[index] = value;
-            --remaining || resolve(values);
+            
           }, reject);
         });
-        --remaining || resolve(values);
+        
       });
       if (result.error) reject(result.value);
       return capability.promise;
@@ -6306,7 +6306,7 @@ typeof navigator === "object" && (function (global, factory) {
         // eslint-disable-next-line no-param-reassign
         element.hidden = true; // eslint-disable-next-line no-unused-expressions
 
-        element.offsetHeight; // eslint-disable-next-line no-param-reassign
+         // eslint-disable-next-line no-param-reassign
 
         element.hidden = false;
       } catch (e) {// Do nothing
@@ -7142,11 +7142,7 @@ typeof navigator === "object" && (function (global, factory) {
         , thisIsRegExp ? this : RegExpPrototype$1, RegExpWrapper);
     };
     var proxy = function (key) {
-      key in RegExpWrapper || defineProperty$4(RegExpWrapper, key, {
-        configurable: true,
-        get: function () { return NativeRegExp[key]; },
-        set: function (it) { NativeRegExp[key] = it; }
-      });
+      
     };
     var keys$2 = getOwnPropertyNames$1(NativeRegExp);
     var index = 0;
