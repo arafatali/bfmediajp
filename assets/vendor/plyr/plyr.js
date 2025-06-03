@@ -561,7 +561,7 @@ typeof navigator === "object" && (function (global, factory) {
         // eslint-disable-next-line no-param-reassign
         element.hidden = true; // eslint-disable-next-line no-unused-expressions
 
-        element.offsetHeight; // eslint-disable-next-line no-param-reassign
+         // eslint-disable-next-line no-param-reassign
 
         element.hidden = false;
       } catch (e) {// Do nothing
