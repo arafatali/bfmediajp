@@ -640,7 +640,7 @@ var ciDebugBar = {
                 row.addEventListener('click', function (ev) {
                     _location          = location.origin + '/' + ciDebugBar.trimSlash(ev.target.innerText);
                     var redirectWindow = window.open(_location, '_blank');
-                    redirectWindow.location;
+                    
                 });
             }
             else
@@ -679,7 +679,7 @@ var ciDebugBar = {
                     });
 
                     var redirectWindow = window.open(_location, '_blank');
-                    redirectWindow.location;
+                    
                 }
             })
         }
