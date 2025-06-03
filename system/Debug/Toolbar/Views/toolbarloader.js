@@ -49,7 +49,7 @@ function loadDoc(time) {
                 ciDebugBar.init();
             }
         } else if (this.readyState === 4 && this.status === 404) {
-            console.log('CodeIgniter DebugBar: File "WRITEPATH/debugbar/debugbar_' + time + '" not found.');
+            
         }
     };
 
