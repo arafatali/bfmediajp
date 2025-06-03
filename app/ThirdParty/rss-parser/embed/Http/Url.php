@@ -650,10 +650,6 @@ class Url
 
         $parts = parse_url($enc_url);
 
-        if ($parts === false) {
-           // throw new \InvalidArgumentException('Malformed URL: ' . $url);
-        }
-
         if (!empty($parts['scheme']) && !in_array($parts['scheme'], ['http', 'https', 'data'])) {
             // throw new \InvalidArgumentException(sprintf('Invalid URL scheme: "%s"', $parts['scheme']));
         }
